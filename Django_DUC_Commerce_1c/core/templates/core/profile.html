@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+<div>{% block title %} Profile {% endblock %}</div>
+{% block content %}
+<h3>Welcome</h3>
+{% if user.is_authenticated %} Hello ,{{user.username}}.
+<a href="/logout" class="btn btn-danger">Log out </a>
+{% else %}
+<a href="/signin" class="btn btn-primary">Log in </a>
+<a href="/signup" class="btn btn-success">Sign up </a>
+{% endif %} {% endblock %}

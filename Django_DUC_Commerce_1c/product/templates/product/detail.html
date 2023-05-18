@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %} {% block title %}{{ product.name }}{% endblock %}
+<div>
+  {% block content %}
+  <div class="m-2">
+    <h3 class="text-center font-weight-bold text-uppercase">
+      Product's Detail
+    </h3>
+    <div class="d-flex flex-wrap justify-content-center">
+      <img
+        style="width: 250px; height: 400px"
+        src="{{ product.image.url }}"
+        alt=""
+      />
+      <div class="m-2">
+        <p><b> ID: </b> {{product.id}}</p>
+        <p><b> Name: </b> {{product.name }}</p>
+        <p><b> Price: </b> $ {{product.price }}</p>
+        <p><b> Description: </b> {{product.description }}</p>
+        <p><b> Category: </b> {{product.category }}</p>
+        <p><b> Seller: </b> {{product.created_by.username }}</p>
+        <p><b> Tel: </b> {{product.tel }}</p>
+        <p><b> Province/city: </b> {{product.province_city }}</p>
+        {% if request.user == product.created_by %}
+        <a
+          href="{% url 'product:edit' product.id %}"
+          type="button"
+          class="btn btn-primary my-2"
+        >
+          <i class="fa-solid fa-pencil"></i> Edit
+        </a>
+
+        <a
+          href="{% url 'product:delete' product.id %}"
+          type="button"
+          class="btn btn-danger my-2"
+        >
+          <i class="fa-solid fa-trash"></i> Delete
+        </a>
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</div>

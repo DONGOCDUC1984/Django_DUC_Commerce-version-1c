@@ -1,0 +1,56 @@
+{% extends 'core/base.html' %} {% block title %} Products {% endblock %}
+<div>
+  {% block content %}
+  <div class="container">
+    <h3 class="text-center font-weight-bold text-uppercase">Products</h3>
+
+    {% for msg in messages %}
+    <div class="alert alert-success"><strong>Success!</strong> {{ msg }}</div>
+    {% endfor %}
+    <div class="d-flex flex-wrap justify-content-center bg-light">
+      {% for product in page_obj %}
+      <div class="card m-2 p-2 border">
+        <a class="mx-auto" href="{% url 'product:detail' product.id %}">
+          <img
+            class="card-img-top mx-auto"
+            style="width: 200px; height: 300px"
+            src="{{ product.image.url }}"
+            alt=""
+          />
+        </a>
+        <div class="card-body">
+          <h4 class="card-title">{{ product.name }}</h4>
+          <p class="card-text">ID: {{ product.id }}</p>
+          <p class="card-text">Price: $ {{product.price }}</p>
+          <a
+            href="{% url 'product:detail' product.id %}"
+            class="btn btn-success"
+          >
+            Details
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="pagination justify-content-center">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+      <a href="?page=1">&laquo; first</a>
+      <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+
+  {% endblock %}
+</div>

@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %} {% block title %} All Users {% endblock %}
+<div>
+  {% block content %}
+  <div class="container">
+    <h3 class="text-center font-weight-bold text-uppercase">All Users</h3>
+    {% for msg in messages %}
+    <div class="alert alert-success"><strong>Success!</strong> {{ msg }}</div>
+    {% endfor %}
+    <table class="table table-hover table-dark mx-auto w-50">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in all_users %}
+        <tr>
+          <td>{{user.id }}</td>
+          <td>{{user.username }}</td>
+          <td>{{user.email }}</td>
+          {% if user.is_superuser %}
+          <td>Admin</td>
+          {% else %}
+          <td>Normal</td>
+          {% endif %} {% if user.is_superuser %}
+          <td>Not Delete</td>
+          {% else %}
+          <td>
+            <a
+              href="{% url 'core:delete_user' user.id %}"
+              type="button"
+              class="btn btn-danger my-2"
+            >
+              <i class="fa-solid fa-trash"></i> Delete
+            </a>
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% endblock %}
+</div>

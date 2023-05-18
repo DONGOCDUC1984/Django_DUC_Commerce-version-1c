@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %} {% block title %} Products {% endblock %}
+<div>
+  {% block content %}
+  <div class="container">
+    <h3 class="text-center font-weight-bold text-uppercase">Products</h3>
+
+    {% for msg in messages %}
+    <div class="alert alert-success"><strong>Success!</strong> {{ msg }}</div>
+    {% endfor %}
+    <div class="d-flex flex-wrap justify-content-center bg-light">
+      {% for product in products %}
+      <div class="card m-2 p-2 border">
+        <a class="mx-auto" href="{% url 'product:detail' product.id %}">
+          <img
+            class="card-img-top mx-auto"
+            style="width: 200px; height: 300px"
+            src="{{ product.image.url }}"
+            alt=""
+          />
+        </a>
+        <div class="card-body">
+          <h4 class="card-title">{{ product.name }}</h4>
+          <p class="card-text">ID: {{ product.id }}</p>
+          <p class="card-text">Price: $ {{product.price }}</p>
+          <a
+            href="{% url 'product:detail' product.id %}"
+            class="btn btn-success"
+          >
+            Details
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endblock %}
+</div>
